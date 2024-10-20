@@ -32,16 +32,9 @@
 # üst limit = q3 + (1.5 x iqr)
 # eğer bir değer bu limitlerin dışındaysa o değer aykırı değer kabul edilir
 
-import numpy as np
 import pandas as pd
 import seaborn as sns
 from matplotlib import pyplot as plt
-import missingno as msno
-from datetime import date
-from sklearn.metrics import accuracy_score
-from sklearn.model_selection import train_test_split
-from sklearn.neighbors import LocalOutlierFactor
-from sklearn.preprocessing import MinMaxScaler, LabelEncoder, StandardScaler, RobustScaler
 
 pd.set_option('display.max_columns', None)
 pd.set_option('display.max_rows', None)
@@ -67,5 +60,4 @@ up = q3 + (1.5 * iqr)
 low = q1 - (1.5 * iqr)
 
 df[(df["Age"] < low) | (df["Age"] > up)]
-
 df[(df["Age"] < low) | (df["Age"] > up)].index
