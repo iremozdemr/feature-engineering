@@ -10,7 +10,7 @@ pd.set_option('display.max_rows', None)
 pd.set_option('display.float_format', lambda x: '%.3f' % x)
 pd.set_option('display.width', 500)
 
-df = pd.read_csv("./titanic.csv")
+df = pd.read_csv("datasets/titanic.csv")
 df.head()
 
 def outlier_threshold(dataframe, column, q1=0.25, q3=0.75):
@@ -21,18 +21,22 @@ def outlier_threshold(dataframe, column, q1=0.25, q3=0.75):
     low = quartile1 - 1.5 * interquartile_range
     return low,up
 
-def outlier_index(dataframe,column,write_index=False):
+def outlier_index(dataframe,column,print=False):
     low,up = outlier_threshold(df, column)
 
-    if dataframe[dataframe[column] > up].any(axis=None):
-        print(dataframe[dataframe[column] > up])
-    if dataframe[dataframe[column] < low].any(axis=None):
-        print(dataframe[dataframe[column] < low])
+    if print:
+        if dataframe[dataframe[column] > up].any(axis=None):
+            print(dataframe[dataframe[column] > up])
+        if dataframe[dataframe[column] < low].any(axis=None):
+            print(dataframe[dataframe[column] < low])
 
-    if write_index:
-        index1 = dataframe[dataframe[column] > up].index
-        index2 = dataframe[dataframe[column] < low].index
-        return index1.append(index2)
+    index1 = dataframe[dataframe[column] > up].index
+    index2 = dataframe[dataframe[column] < low].index
+    return index1.append(index2)
+
+
+def outlier_number(dataframe,column):
+    return len(outlier_index(dataframe,column))
 
 def check_outlier(dataframe,column):
     low,up = outlier_threshold(df, column)

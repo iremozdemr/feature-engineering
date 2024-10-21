@@ -41,7 +41,7 @@ pd.set_option('display.max_rows', None)
 pd.set_option('display.float_format', lambda x: '%.3f' % x)
 pd.set_option('display.width', 500)
 
-df = pd.read_csv("./titanic.csv")
+df = pd.read_csv("datasets/titanic.csv")
 df.head()
 
 sns.boxplot(x=df["Age"])
